@@ -128,7 +128,7 @@ export default function DashboardPage() {
               <CreditCard className="text-brand-gold" size={20} />
             </div>
 
-            {subscription?.status === 'active' ? (
+            {subscription?.subscription?.status === 'active' ? (
               <>
                 <div className="mb-4">
                   <p className="text-sm text-brand-text-muted">Current Plan</p>
@@ -308,7 +308,7 @@ export default function DashboardPage() {
               <Zap className="text-brand-gold" size={20} />
             </div>
 
-            {subscription?.status === 'active' ? (
+            {subscription?.subscription?.status === 'active' ? (
               <>
                 <div className="mb-6">
                   <p className="mb-2 text-sm text-brand-text-muted">You're eligible to win with:</p>
