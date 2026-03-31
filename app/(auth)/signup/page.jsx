@@ -125,7 +125,7 @@ export default function SignupPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             charityId: formData.charityId,
-            charityContributionPercent: 100, // Default to 100%
+            contributionPercent: 10,
           }),
         });
 
