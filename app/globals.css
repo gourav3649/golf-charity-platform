@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    background-color: #F9F6F1;
+    color: #1A1A1A;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    color: #1B4332;
+    font-weight: 600;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

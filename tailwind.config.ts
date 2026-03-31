@@ -11,6 +11,17 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: {
+          green: '#1B4332',
+          'green-light': '#2D6A4F',
+          'green-pale': '#D8F3DC',
+          gold: '#D4A853',
+          'gold-light': '#F0D080',
+          bg: '#F9F6F1',
+          'bg-card': '#FFFFFF',
+          text: '#1A1A1A',
+          'text-muted': '#6B7280',
+        }
       },
     },
   },
