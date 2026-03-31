@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CreditCard, Check, Loader2, AlertCircle, Heart, ArrowRight } from 'lucide-react';
 
-export default function SubscriptionsPage() {
+function SubscriptionsPage() {
   const [plans, setPlans] = useState(null);
   const [subscription, setSubscription] = useState(null);
   const [charities, setCharities] = useState([]);
@@ -574,3 +574,20 @@ export default function SubscriptionsPage() {
     </div>
   );
 }
+
+function SubscriptionsPageWrapper() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-brand-bg px-4 py-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="h-10 w-40 animate-pulse rounded-lg bg-gray-300 mb-8"></div>
+          <div className="h-80 animate-pulse rounded-lg bg-gray-200"></div>
+        </div>
+      </div>
+    }>
+      <SubscriptionsPage />
+    </Suspense>
+  );
+}
+
+export default SubscriptionsPageWrapper;
