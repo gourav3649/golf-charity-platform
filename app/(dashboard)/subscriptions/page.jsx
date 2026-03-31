@@ -52,7 +52,7 @@ export default function SubscriptionsPage() {
   }, []);
 
   const handleActivateSubscription = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setSubmitting(true);
 
@@ -100,7 +100,7 @@ export default function SubscriptionsPage() {
   };
 
   const handleSelectCharity = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setSubmitting(true);
 

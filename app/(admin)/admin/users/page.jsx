@@ -90,16 +90,20 @@ export default function AdminUsersPage() {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
     setDeleting(userId);
+    setError('');
     try {
       const res = await fetch(`/api/admin/users/${userId}`, { method: 'DELETE' });
+      const data = await res.json();
+      
       if (res.ok) {
         setUsers(users.filter((u) => u._id !== userId));
+        alert('User deleted successfully');
       } else {
-        setError('Failed to delete user');
+        setError(data.message || 'Failed to delete user');
       }
     } catch (err) {
       console.error('Error deleting user:', err);
-      setError('An error occurred');
+      setError('An error occurred while deleting user');
     } finally {
       setDeleting(null);
     }

@@ -23,10 +23,20 @@ export default function AdminDrawsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [formData, setFormData] = useState({
+    month: '',
     drawType: 'random',
   });
   const [showCreateForm, setShowCreateForm] = useState(false);
   const router = useRouter();
+
+  // Generate default month (current month)
+  useEffect(() => {
+    if (!formData.month) {
+      const now = new Date();
+      const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      setFormData((prev) => ({ ...prev, month }));
+    }
+  }, []);
 
   useEffect(() => {
     const fetchDraws = async () => {
@@ -64,18 +74,18 @@ export default function AdminDrawsPage() {
   }, [router]);
 
   const handleCreateDraw = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setSuccess('');
     setSubmitting(true);
 
     try {
-      const currentMonth = new Date().toISOString().slice(0, 7);
+      const month = formData.month || new Date().toISOString().slice(0, 7);
       const res = await fetch('/api/draws/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          month: currentMonth,
+          month,
           drawType: formData.drawType,
         }),
       });
@@ -89,7 +99,10 @@ export default function AdminDrawsPage() {
 
       const data = await res.json();
       setDraws([data.data.draw, ...draws]);
-      setFormData({ drawType: 'random' });
+      setFormData({ 
+        drawType: 'random',
+        month: new Date().toISOString().slice(0, 7),
+      });
       setShowCreateForm(false);
       setSuccess('Draw created successfully');
     } catch (err) {
@@ -239,18 +252,43 @@ export default function AdminDrawsPage() {
             </div>
 
             <form onSubmit={handleCreateDraw} className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-brand-green">Draw Type *</label>
-                <select
-                  value={formData.drawType}
-                  onChange={(e) => setFormData({ ...formData, drawType: e.target.value })}
-                  className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-brand-text focus:border-brand-green focus:outline-none"
-                  required
-                >
-                  <option value="random">Random Draw</option>
-                  <option value="algorithmic">Algorithmic Draw</option>
-                </select>
-                <p className="mt-2 text-xs text-brand-text-muted">Current month: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label className="block text-sm font-semibold text-brand-green">Draw Month *</label>
+                  <input
+                    type="month"
+                    value={formData.month}
+                    onChange={(e) => setFormData({ ...formData, month: e.target.value })}
+                    className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-brand-text focus:border-brand-green focus:outline-none"
+                    required
+                  />
+                  <p className="mt-2 text-xs text-brand-text-muted">Select which month to create the draw for</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-brand-green">Draw Type *</label>
+                  <select
+                    value={formData.drawType}
+                    onChange={(e) => setFormData({ ...formData, drawType: e.target.value })}
+                    className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-brand-text focus:border-brand-green focus:outline-none"
+                    required
+                  >
+                    <option value="random">Random Draw</option>
+                    <option value="algorithmic">Algorithmic Draw</option>
+                  </select>
+                  <p className="mt-2 text-xs text-brand-text-muted">How winners will be selected</p>
+                </div>
+              </div>
+
+              <div className="rounded-lg bg-blue-50 p-4 ring-1 ring-blue-200">
+                <p className="text-sm font-semibold text-blue-700 mb-2">Prize Pool Information</p>
+                <ul className="text-xs text-blue-600 space-y-1">
+                  <li>• Prize pool is calculated automatically during simulation</li>
+                  <li>• 40% of pool goes to 5-number matches</li>
+                  <li>• 35% of pool goes to 4-number matches</li>
+                  <li>• 25% of pool goes to 3-number matches</li>
+                  <li>• Rollover amounts are managed from previous draws</li>
+                </ul>
               </div>
 
               <div className="flex gap-4">

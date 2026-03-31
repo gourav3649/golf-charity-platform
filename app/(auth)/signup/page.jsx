@@ -45,7 +45,7 @@ export default function SignupPage() {
   };
 
   const handleStepOne = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setLoading(true);
 
@@ -113,7 +113,7 @@ export default function SignupPage() {
   };
 
   const handleSignup = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setLoading(true);
 

@@ -87,7 +87,7 @@ export default function AdminCharitiesPage() {
   }, [searchQuery, charities]);
 
   const handleAddCharity = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setSuccess('');
     setSubmitting(true);
@@ -125,7 +125,7 @@ export default function AdminCharitiesPage() {
   };
 
   const handleEditCharity = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setError('');
     setSuccess('');
     setSubmitting(true);
@@ -167,17 +167,20 @@ export default function AdminCharitiesPage() {
     if (!window.confirm('Are you sure you want to delete this charity?')) return;
 
     setDeleting(charityId);
+    setError('');
     try {
       const res = await fetch(`/api/charities/${charityId}`, { method: 'DELETE' });
+      const data = await res.json();
+      
       if (res.ok) {
         setCharities(charities.filter((c) => c._id !== charityId));
         setSuccess('Charity deleted successfully');
       } else {
-        setError('Failed to delete charity');
+        setError(data.message || 'Failed to delete charity');
       }
     } catch (err) {
       console.error('Error deleting charity:', err);
-      setError('An error occurred');
+      setError('An error occurred while deleting charity');
     } finally {
       setDeleting(null);
     }
