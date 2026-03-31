@@ -122,12 +122,12 @@ export default function ScoresPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 px-4 py-12">
+      <div className="min-h-screen bg-brand-bg px-4 py-12">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-8 h-10 w-32 animate-pulse rounded-lg bg-slate-800"></div>
+          <div className="mb-8 h-10 w-32 animate-pulse rounded-lg bg-gray-300"></div>
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-20 animate-pulse rounded-lg bg-slate-800"></div>
+              <div key={i} className="h-20 animate-pulse rounded-lg bg-gray-200"></div>
             ))}
           </div>
         </div>
@@ -139,58 +139,70 @@ export default function ScoresPage() {
     scores.length > 0 ? (scores.reduce((sum, s) => sum + s.value, 0) / scores.length).toFixed(1) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 px-4 py-12">
+    <div className="min-h-screen bg-brand-bg px-4 py-12">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold text-white">Golf Scores</h1>
-          <p className="text-slate-400">Track and manage your golf scores. We keep your best 5.</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="mb-2 text-4xl font-bold text-brand-green">Golf Scores</h1>
+            <p className="text-brand-text-muted">Track and manage your golf scores. We keep your 5 most recent.</p>
+          </div>
+          <button
+            onClick={async () => {
+              await fetch('/api/auth/logout', { method: 'POST' });
+              router.push('/');
+              router.refresh();
+            }}
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Summary Cards */}
         {scores.length > 0 && (
           <div className="mb-8 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-              <p className="text-xs text-slate-400">Average Score</p>
-              <p className="mt-1 text-3xl font-bold text-cyan-400">{average}</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-brand-text-muted">Average Score</p>
+              <p className="mt-1 text-3xl font-bold text-brand-gold">{average}</p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-              <p className="text-xs text-slate-400">Best Score</p>
-              <p className="mt-1 text-3xl font-bold text-green-400">
+            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-brand-text-muted">Best Score</p>
+              <p className="mt-1 text-3xl font-bold text-brand-green">
                 {Math.max(...scores.map(s => s.value))}
               </p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-              <p className="text-xs text-slate-400">Total Logged</p>
-              <p className="mt-1 text-3xl font-bold text-blue-400">{scores.length}</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-brand-text-muted">Total Logged</p>
+              <p className="mt-1 text-3xl font-bold text-brand-gold">{scores.length}</p>
             </div>
           </div>
         )}
 
         <div className="mb-8 grid gap-8 lg:grid-cols-3">
           {/* Add Score Form */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 lg:col-span-1">
-            <h2 className="mb-4 flex items-center gap-2 font-bold text-white">
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm lg:col-span-1">
+            <h2 className="mb-4 flex items-center gap-2 font-bold text-brand-green">
               <Plus size={20} /> Add Score
             </h2>
 
             {error && (
-              <div className="mb-4 flex gap-3 rounded-lg bg-red-600/10 p-4 ring-1 ring-red-600/20">
-                <AlertCircle size={16} className="flex-shrink-0 text-red-400" />
-                <p className="text-sm text-red-300">{error}</p>
+              <div className="mb-4 flex gap-3 rounded-lg bg-red-50 p-4 ring-1 ring-red-200">
+                <AlertCircle size={16} className="flex-shrink-0 text-red-600" />
+                <p className="text-sm text-red-700">{error}</p>
               </div>
             )}
 
             {success && (
-              <div className="mb-4 flex gap-3 rounded-lg bg-green-600/10 p-4 ring-1 ring-green-600/20">
-                <CheckCircle2 size={16} className="flex-shrink-0 text-green-400" />
-                <p className="text-sm text-green-300">{success}</p>
+              <div className="mb-4 flex gap-3 rounded-lg bg-green-50 p-4 ring-1 ring-green-200">
+                <CheckCircle2 size={16} className="flex-shrink-0 text-green-600" />
+                <p className="text-sm text-green-700">{success}</p>
               </div>
             )}
 
             <form onSubmit={handleAddScore} className="space-y-4">
               <div>
-                <label className="mb-2 block text-sm font-semibold text-white">
+                <label className="mb-2 block text-sm font-semibold text-brand-green">
                   Score (1-45)
                 </label>
                 <input
@@ -200,30 +212,30 @@ export default function ScoresPage() {
                   value={newScore}
                   onChange={(e) => setNewScore(e.target.value)}
                   placeholder="Enter score"
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-white">Date</label>
+                <label className="mb-2 block text-sm font-semibold text-brand-green">Date</label>
                 <input
                   type="date"
                   value={scoreDate}
                   onChange={(e) => setScoreDate(e.target.value)}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-white transition-all focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-brand-text transition-all focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                 />
               </div>
 
-              <div className="rounded-lg bg-slate-800/30 p-4">
-                <p className="text-xs text-slate-400">
-                  💡 <span className="font-semibold">Tip:</span> Scores are automatically sorted. We keep your best 5.
+              <div className="rounded-lg bg-brand-bg p-4">
+                <p className="text-xs text-brand-text-muted">
+                  💡 <span className="font-semibold">Tip:</span> Scores are automatically sorted. We keep your 5 most recent.
                 </p>
               </div>
 
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 py-2 font-bold text-white transition-all hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full rounded-lg bg-brand-gold py-2 font-bold text-white transition-all hover:bg-brand-gold/90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? 'Adding...' : 'Add Score'}
               </button>
@@ -231,8 +243,8 @@ export default function ScoresPage() {
           </div>
 
           {/* Scores List */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 lg:col-span-2">
-            <h2 className="mb-4 flex items-center gap-2 font-bold text-white">
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm lg:col-span-2">
+            <h2 className="mb-4 flex items-center gap-2 font-bold text-brand-green">
               <TrendingUp size={20} /> Your Scores
             </h2>
 
@@ -241,15 +253,15 @@ export default function ScoresPage() {
                 {scores.map((score, idx) => (
                   <div
                     key={score._id}
-                    className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/30 p-4 transition-all hover:border-slate-600"
+                    className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4 transition-all hover:bg-gray-100"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-700">
-                        <span className="text-lg font-bold text-white">#{idx + 1}</span>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-gold text-white">
+                        <span className="text-lg font-bold">#{idx + 1}</span>
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-white">{score.value}</p>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-2xl font-bold text-brand-green">{score.value}</p>
+                        <p className="text-xs text-brand-text-muted">
                           {new Date(score.date).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: 'short',
@@ -261,7 +273,7 @@ export default function ScoresPage() {
 
                     <button
                       onClick={() => handleDeleteScore(score._id)}
-                      className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-red-600/20 hover:text-red-400"
+                      className="rounded-lg p-2 text-brand-text-muted transition-colors hover:bg-red-50 hover:text-red-600"
                       aria-label="Delete score"
                     >
                       <Trash2 size={18} />
@@ -270,10 +282,10 @@ export default function ScoresPage() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-lg border border-dashed border-slate-700 bg-slate-800/20 p-8 text-center">
-                <TrendingUp size={32} className="mx-auto mb-3 text-slate-500" />
-                <p className="text-slate-400">No scores logged yet.</p>
-                <p className="text-xs text-slate-500">
+              <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
+                <TrendingUp size={32} className="mx-auto mb-3 text-gray-300" />
+                <p className="text-brand-text-muted">No scores logged yet.</p>
+                <p className="text-xs text-gray-400">
                   Add your first score using the form on the left!
                 </p>
               </div>
@@ -282,11 +294,11 @@ export default function ScoresPage() {
         </div>
 
         {/* Info Section */}
-        <div className="rounded-xl border border-slate-700 bg-slate-800/30 p-6">
-          <h3 className="mb-3 font-bold text-white">Scoring Guidelines</h3>
-          <ul className="space-y-2 text-sm text-slate-300">
+        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h3 className="mb-3 font-bold text-brand-green">Scoring Guidelines</h3>
+          <ul className="space-y-2 text-sm text-brand-text">
             <li>✅ Scores must be between 1-45 (Stableford scoring)</li>
-            <li>✅ We keep your best 5 scores automatically</li>
+            <li>✅ We keep your 5 most recent scores automatically</li>
             <li>✅ You can delete scores anytime</li>
             <li>✅ Scores are used in monthly draw matching</li>
             <li>✅ Date cannot be in the future</li>

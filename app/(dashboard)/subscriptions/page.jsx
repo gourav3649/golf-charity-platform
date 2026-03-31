@@ -52,7 +52,7 @@ export default function SubscriptionsPage() {
   }, []);
 
   const handleActivateSubscription = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSubmitting(true);
 
@@ -100,7 +100,7 @@ export default function SubscriptionsPage() {
   };
 
   const handleSelectCharity = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSubmitting(true);
 
@@ -132,12 +132,12 @@ export default function SubscriptionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 px-4 py-12">
+      <div className="min-h-screen bg-brand-bg px-4 py-12">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-8 h-10 w-32 animate-pulse rounded-lg bg-slate-800"></div>
+          <div className="mb-8 h-10 w-32 animate-pulse rounded-lg bg-gray-300"></div>
           <div className="grid gap-6 sm:grid-cols-2">
             {[...Array(2)].map((_, i) => (
-              <div key={i} className="h-80 animate-pulse rounded-lg bg-slate-800"></div>
+              <div key={i} className="h-80 animate-pulse rounded-lg bg-gray-200"></div>
             ))}
           </div>
         </div>
@@ -146,22 +146,22 @@ export default function SubscriptionsPage() {
   }
 
   // Show steps if activating subscription
-  if (subscription?.status !== 'active' && step === 1) {
+  if (subscription?.subscription?.status !== 'active' && step === 1) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 px-4 py-12">
+      <div className="min-h-screen bg-brand-bg px-4 py-12">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
           <div className="mb-12">
-            <h1 className="mb-2 text-4xl font-bold text-white">Choose Your Plan</h1>
-            <p className="text-slate-400">
+            <h1 className="mb-2 text-4xl font-bold text-brand-green">Choose Your Plan</h1>
+            <p className="text-brand-text-muted">
               Subscribe to participate in monthly draws and support causes you love
             </p>
           </div>
 
           {error && (
-            <div className="mb-8 flex gap-3 rounded-lg bg-red-600/10 p-4 ring-1 ring-red-600/20">
-              <AlertCircle size={16} className="flex-shrink-0 text-red-400" />
-              <p className="text-sm text-red-300">{error}</p>
+            <div className="mb-8 flex gap-3 rounded-lg bg-red-50 p-4 ring-1 ring-red-200">
+              <AlertCircle size={16} className="flex-shrink-0 text-red-600" />
+              <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
 
@@ -175,20 +175,20 @@ export default function SubscriptionsPage() {
                     onClick={() => setSelectedPlan(key)}
                     className={`cursor-pointer rounded-xl border-2 p-8 transition-all ${
                       selectedPlan === key
-                        ? 'border-blue-600 bg-blue-600/10 ring-2 ring-blue-600/30'
-                        : 'border-slate-800 bg-slate-900/50 hover:border-slate-700'
+                        ? 'border-brand-gold bg-brand-gold/10 ring-2 ring-brand-gold/30'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
                     }`}
                   >
-                    <h3 className="mb-2 text-2xl font-bold text-white">{plan.name}</h3>
-                    <p className="mb-4 text-sm text-slate-400">{plan.description}</p>
+                    <h3 className="mb-2 text-2xl font-bold text-brand-green">{plan.name}</h3>
+                    <p className="mb-4 text-sm text-brand-text-muted">{plan.description}</p>
 
                     <div className="mb-6">
-                      <p className="text-4xl font-bold text-white">
+                      <p className="text-4xl font-bold text-brand-green">
                         ${plan.price}
-                        <span className="text-lg text-slate-400">/year</span>
+                        <span className="text-lg text-brand-text-muted">/year</span>
                       </p>
                       {plan.monthlyEquivalent && (
-                        <p className="text-sm text-cyan-400">
+                        <p className="text-sm text-brand-gold">
                           Only ${plan.monthlyEquivalent}/month
                         </p>
                       )}

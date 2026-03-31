@@ -64,7 +64,7 @@ export default function AdminDrawsPage() {
   }, [router]);
 
   const handleCreateDraw = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSuccess('');
     setSubmitting(true);

@@ -167,7 +167,7 @@ export default function DashboardPage() {
                       await fetch('/api/subscriptions/cancel', {
                         method: 'POST',
                       });
-                      router.refresh();
+                      window.location.reload();
                     }}
                     className="rounded-lg bg-red-600 px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
                   >

@@ -87,7 +87,7 @@ export default function AdminCharitiesPage() {
   }, [searchQuery, charities]);
 
   const handleAddCharity = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSuccess('');
     setSubmitting(true);
@@ -125,7 +125,7 @@ export default function AdminCharitiesPage() {
   };
 
   const handleEditCharity = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSuccess('');
     setSubmitting(true);
