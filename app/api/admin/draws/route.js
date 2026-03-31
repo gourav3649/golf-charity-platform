@@ -76,7 +76,7 @@ async function handleGET(request) {
         draw.prizePool.threeMatch.amount;
 
       return {
-        id: draw._id,
+        _id: draw._id,
         month: draw.month,
         status: draw.status,
         drawnNumbers: draw.drawnNumbers || [],
