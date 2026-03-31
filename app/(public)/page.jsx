@@ -180,7 +180,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <Link href="/login">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-white text-white bg-transparent hover:bg-white/10 px-8 py-3 rounded-lg font-semibold">
                 Already a Member?
               </Button>
             </Link>

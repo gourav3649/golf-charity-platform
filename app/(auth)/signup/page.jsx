@@ -44,46 +44,44 @@ export default function SignupPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleStepOne = (e) => {
+  const handleStepOne = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     // Validation
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
       setError('Please enter your full name.');
+      setLoading(false);
       return;
     }
 
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       setError('Please enter a valid email address.');
+      setLoading(false);
       return;
     }
 
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters long.');
+      setLoading(false);
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match.');
+      setLoading(false);
       return;
     }
 
     if (!agreeTerms) {
       setError('Please agree to the terms and conditions.');
+      setLoading(false);
       return;
     }
 
-    setStep(2);
-  };
-
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
+    // Create account
     try {
-      // 1. Create account
       const signupRes = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,12 +95,30 @@ export default function SignupPage() {
 
       if (!signupRes.ok) {
         const data = await signupRes.json();
-        setError(data.message || 'Signup failed. Email may already be registered.');
+        if (signupRes.status === 409) {
+          setError('Email already registered. Please use a different email or log in.');
+        } else {
+          setError(data.message || 'Signup failed. Please try again.');
+        }
         setLoading(false);
         return;
       }
 
-      // 2. Select charity if chosen
+      setStep(2);
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      // Select charity if chosen
       if (formData.charityId) {
         const charityRes = await fetch('/api/charities/select', {
           method: 'POST',
@@ -307,9 +323,10 @@ export default function SignupPage() {
                 {/* Next Button */}
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-gold py-3 font-bold text-white transition-all hover:bg-brand-gold/90"
+                  disabled={loading}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-gold py-3 font-bold text-white transition-all hover:bg-brand-gold/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Continue <ArrowRight size={18} />
+                  {loading ? 'Creating Account...' : 'Continue'} {!loading && <ArrowRight size={18} />}
                 </button>
               </>
             ) : (
