@@ -129,19 +129,15 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950">
-      {/* Background accents */}
-      <div className="absolute -right-40 top-20 h-80 w-80 rounded-full bg-gradient-to-l from-blue-600/20 to-transparent blur-3xl"></div>
-      <div className="absolute -left-40 bottom-20 h-80 w-80 rounded-full bg-gradient-to-r from-cyan-600/20 to-transparent blur-3xl"></div>
-
+    <div className="min-h-screen bg-brand-bg">
       <div className="relative flex min-h-screen items-center justify-center px-4">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="mb-8 text-center">
-            <h1 className="mb-2 text-4xl font-bold text-white">
+            <h1 className="mb-2 text-4xl font-bold text-brand-green">
               {step === 1 ? 'Create Your Account' : 'Choose Your Cause'}
             </h1>
-            <p className="text-slate-400">
+            <p className="text-brand-text-muted">
               {step === 1
                 ? 'Join our community of impact-driven players'
                 : 'Select a charity that matters to you'}
@@ -155,10 +151,10 @@ export default function SignupPage() {
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-full font-semibold transition-all ${
                     s === step
-                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white'
+                      ? 'bg-brand-gold text-white'
                       : s < step
-                      ? 'bg-green-600 text-white'
-                      : 'bg-slate-800 text-slate-400'
+                      ? 'bg-brand-green text-white'
+                      : 'bg-gray-300 text-gray-600'
                   }`}
                 >
                   {s < step ? '✓' : s}
@@ -166,7 +162,7 @@ export default function SignupPage() {
                 {s < 2 && (
                   <div
                     className={`h-1 flex-1 rounded-full ${
-                      s < step ? 'bg-green-600' : 'bg-slate-800'
+                      s < step ? 'bg-brand-green' : 'bg-gray-300'
                     }`}
                   ></div>
                 )}
@@ -177,13 +173,13 @@ export default function SignupPage() {
           {/* Form Card */}
           <form
             onSubmit={step === 1 ? handleStepOne : handleSignup}
-            className="rounded-2xl border border-slate-800 bg-slate-900/50 p-8 backdrop-blur sm:p-10"
+            className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm sm:p-10"
           >
             {/* Error Alert */}
             {error && (
-              <div className="mb-6 flex gap-3 rounded-lg bg-red-600/10 p-4 ring-1 ring-red-600/20">
-                <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-400" />
-                <p className="text-sm text-red-300">{error}</p>
+              <div className="mb-6 flex gap-3 rounded-lg bg-red-50 p-4 ring-1 ring-red-200">
+                <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-600" />
+                <p className="text-sm text-red-700">{error}</p>
               </div>
             )}
 
@@ -192,11 +188,11 @@ export default function SignupPage() {
               <>
                 {/* First Name */}
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-semibold text-white">
+                  <label className="mb-2 block text-sm font-semibold text-brand-green">
                     First Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+                    <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
                       name="firstName"
@@ -204,18 +200,18 @@ export default function SignupPage() {
                       onChange={handleInputChange}
                       placeholder="John"
                       required
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-12 pr-4 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-12 pr-4 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                     />
                   </div>
                 </div>
 
                 {/* Last Name */}
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-semibold text-white">
+                  <label className="mb-2 block text-sm font-semibold text-brand-green">
                     Last Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+                    <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
                       name="lastName"
@@ -223,18 +219,18 @@ export default function SignupPage() {
                       onChange={handleInputChange}
                       placeholder="Doe"
                       required
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-12 pr-4 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-12 pr-4 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                     />
                   </div>
                 </div>
 
                 {/* Email */}
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-semibold text-white">
+                  <label className="mb-2 block text-sm font-semibold text-brand-green">
                     Email Address
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+                    <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                     <input
                       type="email"
                       name="email"
@@ -242,18 +238,18 @@ export default function SignupPage() {
                       onChange={handleInputChange}
                       placeholder="you@example.com"
                       required
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-12 pr-4 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-12 pr-4 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                     />
                   </div>
                 </div>
 
                 {/* Password */}
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-semibold text-white">
+                  <label className="mb-2 block text-sm font-semibold text-brand-green">
                     Password
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
                       name="password"
@@ -262,18 +258,18 @@ export default function SignupPage() {
                       placeholder="••••••••"
                       required
                       minLength={6}
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-12 pr-4 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-12 pr-4 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                     />
                   </div>
                 </div>
 
                 {/* Confirm Password */}
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-semibold text-white">
+                  <label className="mb-2 block text-sm font-semibold text-brand-green">
                     Confirm Password
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
                       name="confirmPassword"
@@ -282,7 +278,7 @@ export default function SignupPage() {
                       placeholder="••••••••"
                       required
                       minLength={6}
-                      className="w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-12 pr-4 text-white placeholder-slate-500 transition-all focus:border-blue-600 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-12 pr-4 text-brand-text placeholder-gray-400 transition-all focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                     />
                   </div>
                 </div>
@@ -294,15 +290,15 @@ export default function SignupPage() {
                     id="terms"
                     checked={agreeTerms}
                     onChange={(e) => setAgreeTerms(e.target.checked)}
-                    className="mt-1 h-5 w-5 rounded border-slate-700 bg-slate-800 text-blue-600"
+                    className="mt-1 h-5 w-5 rounded border-gray-300 bg-white text-brand-gold"
                   />
-                  <label htmlFor="terms" className="text-sm text-slate-300">
+                  <label htmlFor="terms" className="text-sm text-brand-text">
                     I agree to the{' '}
-                    <a href="#" className="text-blue-400 hover:text-blue-300">
+                    <a href="#" className="text-brand-green hover:text-brand-green/80">
                       Terms of Service
                     </a>{' '}
                     and{' '}
-                    <a href="#" className="text-blue-400 hover:text-blue-300">
+                    <a href="#" className="text-brand-green hover:text-brand-green/80">
                       Privacy Policy
                     </a>
                   </label>
@@ -311,7 +307,7 @@ export default function SignupPage() {
                 {/* Next Button */}
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 py-3 font-bold text-white transition-all hover:shadow-lg hover:shadow-blue-500/25"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-gold py-3 font-bold text-white transition-all hover:bg-brand-gold/90"
                 >
                   Continue <ArrowRight size={18} />
                 </button>
@@ -319,7 +315,7 @@ export default function SignupPage() {
             ) : (
               /* Step 2: Charity Selection */
               <>
-                <p className="mb-6 text-sm text-slate-300">
+                <p className="mb-6 text-sm text-brand-text-muted">
                   You can change this later in your dashboard.
                 </p>
 
@@ -334,17 +330,17 @@ export default function SignupPage() {
                       }
                       className={`w-full rounded-lg border-2 p-4 text-left transition-all ${
                         formData.charityId === charity._id
-                          ? 'border-blue-600 bg-blue-600/10'
-                          : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                          ? 'border-brand-gold bg-brand-gold/10'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
-                          <h3 className="font-semibold text-white">{charity.name}</h3>
-                          <p className="text-xs text-slate-400">{charity.category}</p>
+                          <h3 className="font-semibold text-brand-green">{charity.name}</h3>
+                          <p className="text-xs text-brand-text-muted">{charity.category}</p>
                         </div>
                         {formData.charityId === charity._id && (
-                          <CheckCircle2 size={20} className="text-blue-500" />
+                          <CheckCircle2 size={20} className="text-brand-gold" />
                         )}
                       </div>
                     </button>
@@ -356,14 +352,14 @@ export default function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="flex-1 rounded-lg border border-slate-700 py-3 font-bold text-white transition-all hover:bg-slate-800"
+                    className="flex-1 rounded-lg border border-brand-green text-brand-green py-3 font-bold transition-all hover:bg-brand-green/10"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 py-3 font-bold text-white transition-all hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 rounded-lg bg-brand-gold py-3 font-bold text-white transition-all hover:bg-brand-gold/90 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Creating Account...' : 'Create Account'}
                   </button>
@@ -375,17 +371,17 @@ export default function SignupPage() {
             {step === 1 && (
               <>
                 <div className="my-6 flex items-center gap-4">
-                  <div className="h-px flex-1 bg-slate-700"></div>
-                  <p className="text-xs text-slate-500">OR</p>
-                  <div className="h-px flex-1 bg-slate-700"></div>
+                  <div className="h-px flex-1 bg-gray-300"></div>
+                  <p className="text-xs text-gray-500">OR</p>
+                  <div className="h-px flex-1 bg-gray-300"></div>
                 </div>
 
                 {/* Login Link */}
-                <p className="text-center text-sm text-slate-400">
+                <p className="text-center text-sm text-brand-text-muted">
                   Already have an account?{' '}
                   <Link
                     href="/login"
-                    className="font-semibold text-blue-400 transition-colors hover:text-blue-300"
+                    className="font-semibold text-brand-green transition-colors hover:text-brand-green/80"
                   >
                     Log in here
                   </Link>
