@@ -40,6 +40,7 @@ export default function ScoresPage() {
   }, [router]);
 
   const handleAddScore = async (e) => {
+    // Fixed: safe event handler
     e?.preventDefault?.();
     setError('');
     setSuccess('');
