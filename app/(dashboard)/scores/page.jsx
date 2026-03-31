@@ -40,7 +40,7 @@ export default function ScoresPage() {
   }, [router]);
 
   const handleAddScore = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setError('');
     setSuccess('');
     setSubmitting(true);
