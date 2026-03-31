@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import User from '@/models/User';
 import Charity from '@/models/Charity';
-import { connectDB } from '@/lib/mongodb';
+import connectDB from '@/lib/mongodb';
 
 const SEED_SECRET = 'SEED_SECRET_2024';
 
