@@ -90,11 +90,23 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 px-4 py-12">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="mb-2 text-4xl font-bold text-white">
-            Welcome back, {user?.firstName}! 👋
-          </h1>
-          <p className="text-slate-400">Track your progress and manage your subscriptions</p>
+        <div className="mb-12 flex items-center justify-between">
+          <div>
+            <h1 className="mb-2 text-4xl font-bold text-white">
+              Welcome back, {user?.firstName}! 👋
+            </h1>
+            <p className="text-slate-400">Track your progress and manage your subscriptions</p>
+          </div>
+          <button
+            onClick={async () => {
+              await fetch('/api/auth/logout', { method: 'POST' });
+              router.push('/');
+              router.refresh();
+            }}
+            className="rounded-lg bg-red-600/20 px-4 py-2 text-sm font-semibold text-red-300 transition-colors hover:bg-red-600/30"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Grid Layout */}
