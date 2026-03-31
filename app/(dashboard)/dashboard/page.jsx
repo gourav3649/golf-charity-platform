@@ -97,16 +97,26 @@ export default function DashboardPage() {
             </h1>
             <p className="text-slate-400">Track your progress and manage your subscriptions</p>
           </div>
-          <button
-            onClick={async () => {
-              await fetch('/api/auth/logout', { method: 'POST' });
-              router.push('/');
-              router.refresh();
-            }}
-            className="rounded-lg bg-red-600/20 px-4 py-2 text-sm font-semibold text-red-300 transition-colors hover:bg-red-600/30"
-          >
-            Logout
-          </button>
+          <div className="flex gap-3">
+            {user?.role === 'admin' && (
+              <Link
+                href="/admin"
+                className="rounded-lg bg-blue-600/20 px-4 py-2 text-sm font-semibold text-blue-300 transition-colors hover:bg-blue-600/30"
+              >
+                Admin Panel
+              </Link>
+            )}
+            <button
+              onClick={async () => {
+                await fetch('/api/auth/logout', { method: 'POST' });
+                router.push('/');
+                router.refresh();
+              }}
+              className="rounded-lg bg-red-600/20 px-4 py-2 text-sm font-semibold text-red-300 transition-colors hover:bg-red-600/30"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Grid Layout */}

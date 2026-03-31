@@ -45,6 +45,10 @@ export async function POST(request) {
 
     // Prepare user response (exclude password)
     const userResponse = user.toJSON();
+    // Ensure role is included in response
+    if (!userResponse.role) {
+      userResponse.role = user.role;
+    }
 
     return jsonResponse(
       {

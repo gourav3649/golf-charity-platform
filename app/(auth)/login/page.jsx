@@ -31,7 +31,11 @@ export default function LoginPage() {
         return;
       }
 
-      router.push('/dashboard');
+      if (data.data.user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
       router.refresh();
     } catch (err) {
       setError('An error occurred. Please try again.');
