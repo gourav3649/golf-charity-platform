@@ -107,7 +107,7 @@ export default function AdminDashboardPage() {
               <h3 className="font-semibold text-brand-text-muted">Total Users</h3>
               <Users className="text-brand-gold" size={20} />
             </div>
-            <p className="text-3xl font-bold text-brand-green">{analytics?.totalUsers || 0}</p>
+            <p className="text-3xl font-bold text-brand-green">{analytics?.overview?.totalUsers || analytics?.totalUsers || 0}</p>
             <p className="mt-2 text-xs text-brand-text-muted">Registered accounts</p>
           </div>
 
@@ -119,8 +119,8 @@ export default function AdminDashboardPage() {
             </div>
             <p className="text-3xl font-bold text-brand-green">{analytics?.subscriptions?.totalActiveSubscribers || 0}</p>
             <p className="mt-2 text-xs text-brand-text-muted">
-              {analytics?.totalUsers
-                ? `${((analytics.subscriptions?.totalActiveSubscribers / analytics.totalUsers) * 100).toFixed(1)}% conversion`
+              {(analytics?.overview?.totalUsers || analytics?.totalUsers || 0) > 0
+                ? `${((analytics.subscriptions?.totalActiveSubscribers / (analytics?.overview?.totalUsers || analytics?.totalUsers)) * 100).toFixed(1)}% conversion`
                 : 'No data'}
             </p>
           </div>

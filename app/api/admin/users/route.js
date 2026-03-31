@@ -44,7 +44,7 @@ async function handleGET(request) {
 
     // Fetch users with populated charity reference
     const users = await User.find(filter)
-      .select('email name subscription role createdAt')
+      .select('email firstName lastName subscription selectedCharityId charityContributionPercent role createdAt')
       .populate('selectedCharityId', 'name')
       .sort({ [sortField]: sortOrder })
       .skip(skip)

@@ -164,6 +164,7 @@ export default function DashboardPage() {
                   </Link>
                   <button
                     onClick={async () => {
+                      if (!confirm('Are you sure you want to cancel your subscription?')) return;
                       await fetch('/api/subscriptions/cancel', {
                         method: 'POST',
                       });
@@ -280,7 +281,7 @@ export default function DashboardPage() {
                 </div>
 
                 <Link
-                  href="/subscriptions"
+                  href="/subscriptions?step=charity"
                   className="rounded-lg border border-brand-green text-brand-green px-4 py-2 text-center text-sm font-semibold transition-colors hover:bg-brand-green/10"
                 >
                   Change Charity
@@ -292,7 +293,7 @@ export default function DashboardPage() {
                   No charity selected yet. Choose one to start making impact!
                 </p>
                 <Link
-                  href="/subscriptions"
+                  href="/subscriptions?step=charity"
                   className="flex items-center justify-center gap-2 rounded-lg bg-brand-gold px-4 py-2 font-semibold text-white transition-all hover:bg-brand-gold/90"
                 >
                   Select a Charity

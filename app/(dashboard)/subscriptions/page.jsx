@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CreditCard, Check, Loader2, AlertCircle, Heart, ArrowRight } from 'lucide-react';
 
@@ -17,6 +17,14 @@ export default function SubscriptionsPage() {
   const [error, setError] = useState('');
   const [step, setStep] = useState(1); // 1: plans, 2: charity
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Handle step parameter from URL
+  useEffect(() => {
+    if (searchParams.get('step') === 'charity') {
+      setStep(2);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -197,7 +205,7 @@ export default function SubscriptionsPage() {
                     <div className="mb-6">
                       <p className="text-4xl font-bold text-brand-green">
                         ${plan.price}
-                        <span className="text-lg text-brand-text-muted">/year</span>
+                        <span className="text-lg text-brand-text-muted">{key === 'monthly' ? '/month' : '/year'}</span>
                       </p>
                       {plan.monthlyEquivalent && (
                         <p className="text-sm text-brand-gold">
@@ -554,7 +562,7 @@ export default function SubscriptionsPage() {
                   <h3 className="mb-2 text-xl font-bold text-brand-green">{plan.name}</h3>
                   <p className="mb-4 text-2xl font-bold text-brand-green">
                     ${plan.price}
-                    <span className="text-sm text-brand-text-muted">/year</span>
+                    <span className="text-sm text-brand-text-muted">{key === 'monthly' ? '/month' : '/year'}</span>
                   </p>
                   <p className="text-sm text-brand-text-muted">{plan.description}</p>
                 </div>

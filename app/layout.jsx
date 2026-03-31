@@ -11,8 +11,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: 'Golf Charity Platform | Play for Impact',
-  description:
-    'Transform your golf passion into charitable impact. Track your scores, win monthly draws, and support causes you love.',
+  description: 'Track your golf scores, win monthly prizes, and support charities you love.',
   keywords: [
     'charity',
     'golf',

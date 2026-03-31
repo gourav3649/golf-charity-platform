@@ -276,7 +276,7 @@ export default function AdminUsersPage() {
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-end gap-2">
                           <Link
-                            href={`/admin/users/${user._id}`}
+                            href={`/admin/users/${user.id || user._id}`}
                             className="inline-flex items-center gap-2 rounded-lg border border-brand-gold text-brand-gold px-3 py-1.5 text-xs font-medium transition-colors hover:bg-brand-gold/10"
                           >
                             <Eye size={14} /> View
